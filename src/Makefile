@@ -1,5 +1,5 @@
-OBJ=log.o log_config.o thread_pool.cpp test_thread_pool.cpp  
-CC=clang++ 
+OBJ=log.o log_config.o thread_pool.o epoll_socket.o test_epoll.o
+CC=g++ 
 CFLAGS= -std=c++11 -Wall -g
 LIBPATH=-lpthread
 ALL=main
