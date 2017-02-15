@@ -14,7 +14,7 @@ const int DEBUG_LEVEL = 4;
 //read from config
 extern int log_level;
 
-int log_init(std::string dir, std::string file);
+int  log_init(std::string dir, std::string file);
 void log_error(const char* format, ...);
 void log_warn(const char* format, ...);
 void log_info(const char* format, ...);

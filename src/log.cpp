@@ -14,6 +14,8 @@
 
 #include "log_config.h"
 #include "log.h"
+#include "mutex.h"
+#include "condition.h"
 
 //log context
 const int MAX_SINGLE_LOG_SIZE = 2048;
@@ -26,7 +28,7 @@ bool use_file_appender = false;
 file_appender g_file_appender;
 
 file_appender::file_appender() 
-	: is_inited_(false), retain_day_(-1), last_sec_(0)
+	: last_sec_(0), is_inited_(false), retain_day_(-1)
 {
 }
 
