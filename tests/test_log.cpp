@@ -8,8 +8,8 @@ int main()
         printf("log init error!");
         return 0;
     }		
-	LOG_DEBUG("%s", "wocao");
-	LOG_WARN("%s", "wocao");
-	LOG_INFO("%s", "wocao");
-	LOG_ERROR("%s", "wocao");
+	LOG_DEBUG("%s", "hello");
+	LOG_WARN("%s", "world");
+	LOG_INFO("%s", "hello");
+	LOG_ERROR("%s", "coder");
 }
