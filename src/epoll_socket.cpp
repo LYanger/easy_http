@@ -29,6 +29,13 @@ epoll_socket::~epoll_socket()
 	}
 }
 
+int epoll_socket::stop_epoll()
+{
+	status_ = EP_REJECT_CONN;
+	LOG_INFO("stop epoll, current client: %u", clients_);
+	return 0;
+}
+
 int epoll_socket::start_epoll()
 {
 	int ret = init_thread_pool();
@@ -377,7 +384,7 @@ int epoll_socket::close_and_release(epoll_event& event)
 		}
 	}
 	
-	LOG_DEBUG("connect close complete whick fd: %d, ret: %d", fd, ret);
+	LOG_DEBUG("connect close complete which fd: %d, ret: %d", fd, ret);
 	return ret;
 }
 

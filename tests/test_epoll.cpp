@@ -10,17 +10,17 @@ public:
 	virtual int on_readable(epoll_event& event) {
 		epoll_context* epoll_ctx = (epoll_context*)(event.data.ptr);
 		int fd = epoll_ctx->connfd_;
-		memset(buff, '\0', 1024);
-		int ret = recv(fd, buff, 1024, 0);
+		memset(buff_, '\0', 1024);
+		int ret = recv(fd, buff_, 1024, 0);
 		if(ret == 0)
 			return READ_CLOSE;
-		printf("received: %s\n", buff);
+		printf("received: %s\n", buff_);
 		return READ_OVER;
 	}
 	virtual int on_writeable(epoll_context& epoll_ctx) {
 		int fd = epoll_ctx.connfd_;
-		send(fd, buff, strlen(buff), 0);
-		printf("send: %s\n", buff);
+		send(fd, buff_, strlen(buff), 0);
+		printf("send: %s\n", buff_);
 		return WRITE_ALIVE;
 	}
 	virtual int on_close(epoll_context& epoll_ctx) {
@@ -28,27 +28,27 @@ public:
 		return 0;
 	}
 private:
-	char buff[1024];
+	char buff_[1024];
 };
 
 class echo_server {
 public:
-	echo_server(int bl, int max_ev, int pt) : backlog(bl), max_events(max_ev), port(pt)
+	echo_server(int bl, int max_ev, int pt) : backlog_(bl), max_events_(max_ev), port_(pt)
 	{}
 	
 	int start() {
-		ep_socket.set_port(port);
-		ep_socket.set_backlog(backlog);
-		ep_socket.set_max_events(max_events);
-		ep_socket.set_watcher(&echo_handler);
-		return ep_socket.start_epoll();
+		ep_socket_.set_port(port_);
+		ep_socket_.set_backlog(backlog_);
+		ep_socket_.set_max_events(max_events_);
+		ep_socket_.set_watcher(&echo_handler_);
+		return ep_socket_.start_epoll();
 	}	
 private:
-	int           backlog;
-	int			  max_events;
-	int 		  port;
-	echo_watcher  echo_handler;
-	epoll_socket  ep_socket;
+	int           backlog_;
+	int			  max_events_;
+	int 		  port_;
+	echo_watcher  echo_handler_;
+	epoll_socket  ep_socket_;
 };
 
 
