@@ -79,7 +79,10 @@ int http_epoll_watcher::handle_request(request& req, response& res)
 		res.code_msg_ = STATUS_METHOD_NOT_ALLOWED;
 		std::string allow_name = *(method.get_names()->begin());
 		res.set_head("Allow", allow_name);
+
 		res.body_.clear();   //cleaer
+		res.body_ = STATUS_METHOD_NOT_ALLOWED.msg_;
+		
 		LOG_INFO("not allow method, allowed: %s, request method: %s",
 				 allow_name.c_str(), req.line_.get_method().c_str());
 		return 0;
