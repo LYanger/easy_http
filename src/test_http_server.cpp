@@ -71,10 +71,10 @@ int main(int argc, char** argv)
 
 	thread_pool tp;
 	tp.set_thread_start_cb(thread_worker);
-	tp.set_pool_size(3);
+	tp.set_pool_size(7);
 	server.set_thread_pool(&tp);
 
-	//server.add_mapping("/hello", hello);
+	server.add_mapping("/hello", hello);
 	server.add_mapping("/usleep", usleep);
 	server.add_mapping("/sayhello", sayhello);
 	//server.add_mapping("/login", login, GET_METHOD | POST_METHOD);
@@ -82,7 +82,7 @@ int main(int argc, char** argv)
 
 	server.add_bind_ip("127.0.0.1");
 	server.set_port(atoi(argv[1]));
-	server.set_backlog(100000);
+	server.set_backlog(1000000);
 	server.set_max_events(100000);
 
 	server.start_async();

@@ -1,6 +1,8 @@
 #ifndef _LOG_H
 #define _LOG_H
 
+#define _NO_PRINT_LOG
+
 #include <string>
 #include <string.h>
 #include <fstream>
@@ -45,6 +47,7 @@ private:
 	pthread_mutex_t writelock_;
 };
 
+#ifndef _NO_PRINT_LOG
 #define LOG_ERROR(format, args...) if(log_level >= ERROR_LEVEL) \
 		log_error("%s %s(%d): " format, "ERROR", __FILE__, __LINE__, ##args); 
 #define LOG_WARN(format, args...) if(log_level >= WARN_LEVEL) \
@@ -53,5 +56,11 @@ private:
 		log_info("%s %s(%d): " format, "INFO", __FILE__, __LINE__, ##args); 
 #define LOG_DEBUG(format, args...) if(log_level >= DEBUG_LEVEL)  \
 		log_debug("%s %s(%d): " format, "DEBUG", __FILE__, __LINE__, ##args); 
-   
+#else
+#define LOG_ERROR(format, args...) { }
+#define LOG_WARN(format, args...) { }
+#define LOG_INFO(format, args...) { }
+#define LOG_DEBUG(format, args...) { }
+#endif 
+
 #endif

@@ -232,7 +232,7 @@ int http_epoll_watcher::on_close(epoll_context& epoll_ctx)
 //http_server
 
 http_server::http_server() 
-	: backlog_(10), max_events_(1000), port_(3456), tid_(0)
+	: backlog_(100000), max_events_(1000), port_(3456), tid_(0)
 {
 }
 

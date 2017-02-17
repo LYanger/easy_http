@@ -15,7 +15,7 @@
 #include <sys/sysinfo.h>
 
 epoll_socket::epoll_socket() 
-	: backlog_(5), max_events_(1000), port_(-1), 
+	: backlog_(100000), max_events_(1000), port_(-1), 
 	  epollfd_(-1), clients_(0), thread_pool_(NULL), 
 	  use_default_thread_pool_(true), status_(EP_RUN)
 {
