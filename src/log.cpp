@@ -24,15 +24,15 @@ const int ONE_DAY_SECONDS = 865400;  // 24 * 3600
 int log_level = DEBUG_LEVEL;  //default log_level
 std::string g_dir;
 std::string g_config_file;
-bool use_file_appender = false;
-file_appender g_file_appender;
+bool use_log_manager = false;
+log_manager g_log_manager;
 
-file_appender::file_appender() 
+log_manager::log_manager() 
 	: last_sec_(0), is_inited_(false), retain_day_(-1)
 {
 }
 
-file_appender::~file_appender()
+log_manager::~log_manager()
 {
 	if(fs_.is_open())
 		fs_.close();
@@ -40,7 +40,7 @@ file_appender::~file_appender()
 		pthread_mutex_destroy(&writelock_);
 }
 
-int file_appender::init(std::string& dir, std::string& log_file)
+int log_manager::init(std::string& dir, std::string& log_file)
 {
 	//try to open the dir, and if failed, use the current "." dir
 	if(!dir.empty()) {
@@ -64,17 +64,17 @@ int file_appender::init(std::string& dir, std::string& log_file)
 	return 0;
 }
 
-inline bool file_appender::is_inited()
+inline bool log_manager::is_inited()
 {
 	return is_inited_;
 }
 
-inline void file_appender::set_retain_day(int rt_day)
+inline void log_manager::set_retain_day(int rt_day)
 {
 	retain_day_ = rt_day;
 }
 
-int file_appender::write_log(char* log, const char* format, va_list ap)
+int log_manager::write_log(char* log, const char* format, va_list ap)
 {
 	pthread_mutex_lock(&writelock_);
 	if(fs_.is_open()) {
@@ -86,7 +86,7 @@ int file_appender::write_log(char* log, const char* format, va_list ap)
 	return 0;
 }
 
-int file_appender::shift_file_if_need(struct timeval tv, struct timezone tz)
+int log_manager::shift_file_if_need(struct timeval tv, struct timezone tz)
 {
 	if(last_sec_ == 0) {
 		last_sec_ = tv.tv_sec;
@@ -122,7 +122,7 @@ int file_appender::shift_file_if_need(struct timeval tv, struct timezone tz)
 	return 0;
 }
 
-int file_appender::delete_old_log(timeval tv)
+int log_manager::delete_old_log(timeval tv)
 {
 	if(retain_day_ <= 0) 
 		return 0;
@@ -173,7 +173,7 @@ int _check_config_file()
 
 	std::string rt_day = configs["retai_day"];
 	if(!rt_day.empty())
-		g_file_appender.set_retain_day(atoi(rt_day.c_str()));
+		g_log_manager.set_retain_day(atoi(rt_day.c_str()));
 	
 	//read log file
 	std::string dir = configs["log_dir"];
@@ -181,9 +181,9 @@ int _check_config_file()
 
 	int ret = 0;
 	if(!log_file.empty()) {  //if log_file not empty, start the file appender
-		use_file_appender = true;
-		if(!g_file_appender.is_inited()) {
-			ret = g_file_appender.init(dir, log_file);
+		use_log_manager = true;
+		if(!g_log_manager.is_inited()) {
+			ret = g_log_manager.init(dir, log_file);
 		}
 	}
 	return ret;
@@ -213,7 +213,7 @@ std::string _get_show_time(timeval tv)
 
 void _log(const char* format, va_list ap)
 {
-	if(!use_file_appender) {   //if no config, send log to stdout
+	if(!use_log_manager) {   //if no config, send log to stdout
 		vprintf(format, ap);
 		printf("\n");
 		return ;
@@ -224,10 +224,10 @@ void _log(const char* format, va_list ap)
 	gettimeofday(&now, &tz);
 	std::string final_format = _get_show_time(now) + " " + format;
 
-	//g_file_appender.shift_file_if_need(now, tz);
+	//g_log_manager.shift_file_if_need(now, tz);
 	char single_log[MAX_SINGLE_LOG_SIZE];
 	memset(single_log, 0, MAX_SINGLE_LOG_SIZE);
-	g_file_appender.write_log(single_log, final_format.c_str(), ap);
+	g_log_manager.write_log(single_log, final_format.c_str(), ap);
 }
 
 void log_error(const char* format, ...)

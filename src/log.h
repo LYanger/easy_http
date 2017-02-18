@@ -22,13 +22,13 @@ void set_log_level(const char* level);
 
 extern int log_level;  //read from log config
 
-class file_appender {
+class log_manager {
 public:
-	file_appender();
-	~file_appender();
+	log_manager();
+	~log_manager();
 private:
-	file_appender(const file_appender& rhs);
-	file_appender& operator=(const file_appender& rhs);
+	log_manager(const log_manager& rhs);
+	log_manager& operator=(const log_manager& rhs);
 public:
 	bool is_inited();
 	void set_retain_day(int rt_day);

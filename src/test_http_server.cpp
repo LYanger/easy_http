@@ -71,7 +71,7 @@ int main(int argc, char** argv)
 
 	thread_pool tp;
 	tp.set_thread_start_cb(thread_worker);
-	tp.set_pool_size(7);
+	tp.set_pool_size(1);
 	server.set_thread_pool(&tp);
 
 	server.add_mapping("/hello", hello);
