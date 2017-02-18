@@ -273,8 +273,6 @@ int epoll_socket::accept_socket(int sockfd, std::string& client_ip)
 	struct sockaddr_in client_addr;
 	socklen_t len = sizeof(client_addr);
 	
-	set_nonblocking(sockfd);     //set nonblocking
-
 	if((new_fd = accept(sockfd, reinterpret_cast<struct sockaddr*>(&client_addr), &len)) == -1) {
 		LOG_ERROR("accept error: %s", strerror(errno));
 		return -1;
