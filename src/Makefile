@@ -1,4 +1,5 @@
-OBJ=log.o log_config.o thread_pool.o epoll_socket.o http_parser.o parser_tool.o http_server.o test_http_server.o
+OBJ=log.o log_config.o thread_pool.o epoll_socket.o http_parser.o http_request.o http_response.o http_context.o \
+				http_server.o test_http_server.o
 CC=g++ 
 CFLAGS= -std=c++11 -Wall -g
 LDFLAGS=-lpthread /lib/libjson_libmt.a 
