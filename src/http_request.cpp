@@ -1,4 +1,5 @@
 #include "http_request.h"
+#include "log.h"
 
 static const int MAX_REQ_SIZE = 10485760;
 

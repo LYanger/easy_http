@@ -1,8 +1,6 @@
 #ifndef _HTTP_RESPONSE_H
 #define _HTTP_RESPONSE_H
 
-#include "log.h"
-
 #include <json/json.h>
 
 #include <string>

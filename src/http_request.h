@@ -1,7 +1,6 @@
 #ifndef HTTP_REQUEST_H
 #define HTTP_REQUEST_H
 
-#include "log.h"
 #include "http_parser.h"
 
 #include <json/json.h>

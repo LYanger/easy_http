@@ -1,4 +1,5 @@
 #include "http_context.h"
+#include "log.h"
 
 http_context::http_context(int fd)
 	: fd_(fd), req_(new request), res_(new response)

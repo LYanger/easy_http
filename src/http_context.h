@@ -1,7 +1,6 @@
 #ifndef _HTTP_CONTEXT_H
 #define _HTTP_CONTEXT_H
 
-#include "log.h"
 #include "http_request.h"
 #include "http_response.h"
 
