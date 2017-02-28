@@ -17,7 +17,6 @@
 #include "mutex.h"
 #include "condition.h"
 
-//log context
 const int MAX_SINGLE_LOG_SIZE = 2048;
 const int ONE_DAY_SECONDS = 865400;  // 24 * 3600
 

@@ -23,8 +23,9 @@ public:
 	response(code_message stats_code = STATUS_OK);
 	response(code_message status_code, Json::Value& body);
 public:
-	void set_head(std::string name, std::string& value);
+	void set_head(std::string name, std::string value);
 	void set_body(Json::Value& body);
+	void set_body(std::string body);
 	int  gen_response(std::string& http_version, bool is_keepalive);
 	int  readsome(char* buffer, int buffer_size, int& read_size);    //return 0: read part, 1: read over, -1: read error
 	int  rollback(int num);

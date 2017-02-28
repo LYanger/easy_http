@@ -13,14 +13,14 @@ const int WARN_LEVEL = 2;
 const int INFO_LEVEL = 3;
 const int DEBUG_LEVEL = 4;
 
+extern int log_level;  //read from log config
+
 int  log_init(std::string dir, std::string file);
 void log_error(const char* format, ...);
 void log_warn(const char* format, ...);
 void log_info(const char* format, ...);
 void log_debug(const char* format, ...);
 void set_log_level(const char* level);
-
-extern int log_level;  //read from log config
 
 class log_manager {
 public:

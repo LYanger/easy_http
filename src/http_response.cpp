@@ -12,7 +12,7 @@ response::response(code_message status_code)
 {
 }
 
-void response::set_head(std::string name, std::string& value)
+void response::set_head(std::string name, std::string value)
 {
 	headers_[name] = value;
 }
@@ -22,6 +22,11 @@ void response::set_body(Json::Value& body)
 	Json::FastWriter writer;
 	std::string str_value = writer.write(body);
 	body_ = str_value;
+}
+
+void response::set_body(std::string body)
+{
+	body_ = body;
 }
 
 int response::gen_response(std::string& http_version, bool is_keepalive)
