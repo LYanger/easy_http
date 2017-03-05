@@ -159,7 +159,7 @@ int epoll_socket::start_event_loop()
 	while(status_ != EP_STOP) {
 		int number = epoll_wait(epollfd_, events, max_events_, -1);
 		if(number == -1) {
-			if(errno != EINTR) 
+			if(errno == EINTR) 
 				continue;
 
 			LOG_ERROR("epoll_wait error: %s", strerror(errno));

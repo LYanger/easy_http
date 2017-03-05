@@ -1,7 +1,7 @@
 #ifndef _LOG_H
 #define _LOG_H
 
-#define _NO_PRINT_LOG
+//#define _NO_PRINT_LOG
 
 #include <string>
 #include <string.h>
