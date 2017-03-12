@@ -148,6 +148,7 @@ int on_header_field(http_parser *p, const char* buf, size_t len)
 {
 	request *req = static_cast<request *>(p->data);
 	if(req->parse_part_ == PARSE_REQ_LINE) {
+		//////
 		if(p->method == 1) {  //p is http-parser
 			req->line_.set_method("GET");
 		}
@@ -218,9 +219,10 @@ int on_headers_complete(http_parser *p)
 	LOG_DEBUG("HERDERS COMPLETE! whick field size: %u, valuse size: %u", 
 			  req->header_fields_.size(), req->header_values_.size());
 	
-	//!!!　　POST need length
+	//!!!　　POST need length,     
+	//FIXME            FIXME            FIXME            FIXME              FIXME
 	if(req->get_method() == "POST" && req->get_header("Content-Length").empty()) {
-		req->parse_err_ = PARSE_LEN_REQUIRED;
+		req->parse_err_ = PARSE_LEN_REQUIRED;   //FIXME
 		return -1;
 	}
 	return 0;
@@ -278,7 +280,7 @@ request::request()
 int request::parse_request(const char* read_buffer, int read_size)
 {
 	total_req_size_ += read_size;
-	if(total_req_size_ > MAX_REQ_SIZE) {
+	if(total_req_size_ > MAX_REQ_SIZE) {  //MAX-LEN
 		LOG_INFO("TOO BIG REQUEST WE WILL REFUSE IT!");
 		return -1;
 	}
@@ -346,7 +348,7 @@ std::string request::get_param(std::string name)
 #define IS_HEX(ch)   ((ch >= 'a' && ch <= 'f') \
 				   || (ch >= 'A' && ch <= 'F') \
 				   || (ch >= '0' && ch <= '9'))
-
+//ASCII
 int unescape(std::string &param, std::string& unescape_param)
 {
 	const int size = param.size();

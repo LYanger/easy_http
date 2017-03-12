@@ -306,7 +306,7 @@ int epoll_socket::handle_readable_event(epoll_event& event)
 	if(ret == READ_CLOSE) {
 		return close_and_release(event);
 	}
-	if(ret == READ_CONTINUE) {
+	if(ret == READ_CONTINUE) {   //READCONTINUE                   READCONTINUE !!!!!!!!!!!!!!!!!!!
 		event.events = EPOLLIN | EPOLLONESHOT;
 		epoll_ctl(epollfd_, EPOLL_CTL_MOD, fd, &event);
 	}
@@ -344,7 +344,7 @@ int epoll_socket::handle_writeable_event(epoll_event& event)
 		}
 		
 		//wait for next request
-		event.events = EPOLLIN | EPOLLONESHOT;
+		event.events = EPOLLIN | EPOLLONESHOT;   //reinsert
 	}
 	else {
 		LOG_ERROR("unknow write ret: %d", ret);

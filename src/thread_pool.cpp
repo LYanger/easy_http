@@ -3,7 +3,7 @@
 
 thread_pool::thread_pool() 
 	: cb_(NULL), task_mutex_(), task_cond_(task_mutex_), 
-	  task_size_limit_(-1), pool_size_(0),pool_state_(-1)
+	  task_size_limit_(-1), pool_size_(0), pool_state_(-1)
 {
 }
 

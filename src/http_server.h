@@ -52,7 +52,7 @@ private:
 class http_server {
 public:
 	http_server();
-	//default dtoe is okay
+	//default dtor is okay
 public:
 	int start(int port, int backlog = 10, int max_events = 1000);
 	int start_async();  //if start by async, you need to invoke join()

@@ -5,6 +5,6 @@
 
 int main()
 {
-	dbgprintf("%s", "wocao");
+	dbgprintf("%s", "hello");
 	return 0;
 }
