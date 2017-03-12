@@ -141,7 +141,7 @@ void login(request& req, Json::Value& root)
 int main(int argc, char** argv)
 {
 	if(argc < 2) {
-		printf("usage: ./main [port_num]\n");
+		printf("usage: ./bin/http_server [port_num]\n");
 		return -1;
 	}
     
